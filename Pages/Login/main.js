@@ -20,12 +20,12 @@ createApp({
             user.login.password === this.input.password
         );
 
-        if (user && user.login.uuid !== this.AdminUser.login.uuid) {
+        if (user && user.login?.uuid !== this.AdminUser.login?.uuid) {
           localStorage.setItem("User", JSON.stringify(user));
+          alert("Autenticado correctamente");
           setTimeout(() => {
             location.href = "../Adoptar/index.html";
           }, 1000);
-          alert("Autenticado correctamente");
         } else {
           alert("Credenciales invalidas");
         }

@@ -222,28 +222,42 @@
         >
           <div
             class="col-span-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
-            @click="adopt"
             v-for="pet in pets"
+            @click="showMe(pet)"
           >
-            <n-modal v-model:show="showModal" transform-origin="center">
-              <n-card
+            <template>
+              <!-- <n-button @click="showModal = true"> Start Me up </n-button> -->
+
+              <n-modal
+                v-model:show="showModal"
+                preset="dialog"
                 title="Adoptar"
+                :content="`Quieres adoptar a ${currentPet.name} ?`"
+                positive-text="Adoptar"
+                negative-text="Desistir"
+                @positive-click="adopt"
+                @negative-click="showModal = false"
+                class="rounded-lg"
+              />
+            </template>
+            <!-- <n-modal v-model:show="showModal" transform-origin="center">
+              <n-card
                 :bordered="false"
                 size="huge"
                 role="dialog"
                 aria-modal="true"
                 class="w-[600px] text-white rounded-lg"
-                style="background-color: #0c0c0c"
+                style="background-color: #0c0c0c; font"
               >
-                <template #header-extra>
-                  <h1 class="text-gray-200">
+                <template #header>
+                  <h1 class="text-gray-200 text-xl">
                     Estás por tomar una decisión que cambiara tu vida
                   </h1>
                 </template>
                 Confirmar
                 <template #footer> Nice </template>
               </n-card>
-            </n-modal>
+            </n-modal> -->
             <a href="#" class="group relative block bg-black">
               <img
                 alt="Developer"
@@ -258,7 +272,10 @@
                   {{ pet.type }}
                 </p>
 
-                <p class="text-xl font-bold text-white sm:text-2xl">
+                <p
+                  class="text-xl font-bold text-white sm:text-2xl"
+                  @click="showMe(pet)"
+                >
                   {{ pet.name }}
                 </p>
 

@@ -62,17 +62,36 @@ createApp({
       User: "",
       AdminUser: "",
       showModal: ref(false),
+      currentPet: "",
     };
   },
   methods: {
     logout() {
       localStorage.removeItem("User");
+      localStorage.removeItem("AdminUser");
       setTimeout(() => {
         location.href = "../../index.html";
       }, 1000);
     },
     adopt() {
+      const petAdopted = this.currentPet;
+      const petsUpdated = this.pets.map((pet) => {
+        if (pet.id === petAdopted.id) {
+          pet.status = false;
+          pet.owner = {
+            name: `${this.User.name.title} ${this.User.name.first} ${this.User.name.last}`,
+            id: this.User.login.uuid,
+          };
+          return pet;
+        }
+        return pet;
+      });
+      localStorage.setItem("pets", JSON.stringify(petsUpdated));
+      alert(`Felicidades! Has adoptado a ${petAdopted.name}`);
+    },
+    showMe(pet) {
       this.showModal = true;
+      this.currentPet = pet;
     },
   },
   beforeMount() {
