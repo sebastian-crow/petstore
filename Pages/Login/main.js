@@ -8,6 +8,7 @@ createApp({
         password: "",
       },
       Users: "",
+      AdminUser: "",
     };
   },
   methods: {
@@ -19,10 +20,25 @@ createApp({
             user.login.password === this.input.password
         );
 
-        if (user) {
+        if (user && user.login.uuid !== this.AdminUser.login.uuid) {
           localStorage.setItem("User", JSON.stringify(user));
           setTimeout(() => {
             location.href = "../Adoptar/index.html";
+          }, 1000);
+          alert("Autenticado correctamente");
+        } else {
+          alert("Credenciales invalidas");
+        }
+
+        if (
+          this.input.password === this.AdminUser.password &&
+          this.input.user === this.AdminUser.user
+        ) {
+          const newUser = user;
+          newUser.rol = "admin";
+          localStorage.setItem("User", JSON.stringify(newUser));
+          setTimeout(() => {
+            location.href = "../Admin/Pets/index.html";
           }, 1000);
           alert("Autenticado correctamente");
         } else {
@@ -43,7 +59,9 @@ createApp({
     this.Users = users.map((user) => {
       return user;
     });
+    const adminUser = this.Users[Math.floor(Math.random() * this.Users.length)];
     localStorage.setItem("Users", JSON.stringify(this.Users));
+    localStorage.setItem("AdminUser", JSON.stringify(adminUser));
   },
   mounted() {},
   updated() {},

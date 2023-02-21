@@ -10,10 +10,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/naive-ui"></script>
     <link rel="stylesheet" href="../../style.css" />
+    <style>
+      /* width */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #b9b9b9;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #1d1e1e;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #2c3333;
+      }
+    </style>
   </head>
   <body class="bg-black">
     <div id="adoptar" class="bg-black">
-      <div class="w-full h-screen">
+      <div class="w-full h-screen" v-if="User">
         <nav
           class="relative px-4 py-4 flex justify-between items-center shadow-xl"
         >
@@ -45,7 +66,7 @@
             <li>
               <a
                 class="text-sm text-gray-400 font-bold hover:text-[#bb5b2b]"
-                href="Pages/Adoptar/index.html"
+                href="../Adoptar/index.html"
                 >Adoptar</a
               >
             </li>
@@ -53,14 +74,14 @@
             <li>
               <a
                 class="text-sm text-gray-400 font-bold hover:text-[#bb5b2b]"
-                href="Pages/Entregar/index.html"
+                href="../Entregar/index.html"
                 >Dar en adopción</a
               >
             </li>
             <li>
               <a
                 class="text-sm text-gray-400 font-bold hover:text-[#bb5b2b]"
-                href="Pages/About/index.html"
+                href="../About/index.html"
                 >Nosotros</a
               >
             </li>
@@ -68,7 +89,7 @@
             <li>
               <a
                 class="text-sm text-gray-400 font-bold hover:text-[#bb5b2b]"
-                href="Pages/Donaciones/index.html"
+                href="../Donaciones/index.html"
                 >Donaciones</a
               >
             </li>
@@ -76,11 +97,33 @@
             <li>
               <a
                 class="text-sm text-gray-400 font-bold hover:text-[#bb5b2b]"
-                href="Pages/Contacto/index.html"
+                href="../Contacto/index.html"
                 >Contacto</a
               >
             </li>
+            <li></li>
+            <li></li>
           </ul>
+          <a href="../User/index.html" class="absolute right-48" v-if="User">
+            <img
+              src="../../Img/icons8-cat-profile-100.png"
+              alt=""
+              width="43"
+              class="bg-gray-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+            />
+          </a>
+          <a
+            href="../Admin/index.html"
+            class="absolute right-48"
+            v-if="User. rol === 'admin'"
+          >
+            <img
+              src="../../Img/icons8-cat-profile-100.png"
+              alt=""
+              width="43"
+              class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+            />
+          </a>
           <button
             class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
             @click="logout"
@@ -124,7 +167,7 @@
               <ul>
                 <li class="mb-1">
                   <a
-                    class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded"
+                    class="block p-4 text-sm font-semibold text-gray-400 hover:bg-blue-50 hover:text-blue-600 rounded transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
                     href="../Adoptar/index.html"
                     >Adoptar</a
                   >
@@ -175,9 +218,32 @@
           </nav>
         </div>
         <div
-          class="m-5 sm:m-12 lg:m-14 w-[90%] grid grid-cols-2 lg:grid-cols-6 gap-8 h-full bg-black"
+          class="m-5 sm:m-12 lg:m-20 w-[90%] grid grid-cols-2 lg:grid-cols-6 gap-8 h-full bg-black"
         >
-          <div class="col-span-2" v-for="pet in pets">
+          <div
+            class="col-span-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            @click="adopt"
+            v-for="pet in pets"
+          >
+            <n-modal v-model:show="showModal" transform-origin="center">
+              <n-card
+                title="Adoptar"
+                :bordered="false"
+                size="huge"
+                role="dialog"
+                aria-modal="true"
+                class="w-[600px] text-white rounded-lg"
+                style="background-color: #0c0c0c"
+              >
+                <template #header-extra>
+                  <h1 class="text-gray-200">
+                    Estás por tomar una decisión que cambiara tu vida
+                  </h1>
+                </template>
+                Confirmar
+                <template #footer> Nice </template>
+              </n-card>
+            </n-modal>
             <a href="#" class="group relative block bg-black">
               <img
                 alt="Developer"
@@ -217,49 +283,62 @@
           class="max-w-full px-4 py-12 mx-auto space-y-8 overflow-hidden sm:px-6 lg:px-8 bg-black"
         >
           <nav class="flex flex-wrap justify-center -mx-5 -my-2">
-            <div class="px-5 py-2">
+            <div
+              class="px-5 py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            >
               <a
-                href="#"
-                class="text-base leading-6 text-gray-500 hover:text-gray-900"
+                href="Pages/Adoptar/index.html"
+                class="text-base leading-6 text-gray-500 hover:text-gray-300"
               >
                 Nosotros
               </a>
             </div>
             <div class="px-5 py-2">
               <a
-                href="#"
-                class="text-base leading-6 text-gray-500 hover:text-gray-900"
+                href="https://www.desparasitaatumascota.es/blog"
+                target="_blank"
+                class="text-base leading-6 text-gray-500 hover:text-gray-300"
               >
                 Blog
               </a>
             </div>
-            <div class="px-5 py-2">
+            <div
+              class="px-5 py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            >
               <a
                 href="#"
-                class="text-base leading-6 text-gray-500 hover:text-gray-900"
+                class="text-base leading-6 text-gray-500 hover:text-gray-300"
               >
                 Adoptar
               </a>
             </div>
-            <div class="px-5 py-2">
+            <div
+              class="px-5 py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            >
               <a
-                href="#"
-                class="text-base leading-6 text-gray-500 hover:text-gray-900"
+                href="../Donaciones/index.html"
+                class="text-base leading-6 text-gray-500 hover:text-gray-300"
               >
                 Donaciones
               </a>
             </div>
-            <div class="px-5 py-2">
+            <div
+              class="px-5 py-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            >
               <a
-                href="#"
-                class="text-base leading-6 text-gray-500 hover:text-gray-900"
+                href="../Contacto/index.html"
+                class="text-base leading-6 text-gray-500 hover:text-gray-300"
               >
                 Contacto
               </a>
             </div>
           </nav>
           <div class="flex justify-center mt-8 space-x-6">
-            <a href="#" class="text-gray-400 hover:text-gray-500">
+            <a
+              href="https://www.facebook.com"
+              target="_blank"
+              class="text-gray-400 hover:text-gray-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            >
               <span class="sr-only">Facebook</span>
               <svg
                 class="w-6 h-6"
@@ -274,7 +353,11 @@
                 ></path>
               </svg>
             </a>
-            <a href="#" class="text-gray-400 hover:text-gray-500">
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              class="text-gray-400 hover:text-gray-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            >
               <span class="sr-only">Instagram</span>
               <svg
                 class="w-6 h-6"
@@ -289,7 +372,11 @@
                 ></path>
               </svg>
             </a>
-            <a href="#" class="text-gray-400 hover:text-gray-500">
+            <a
+              href="https://twitter.com/?lang=en"
+              target="_blank"
+              class="text-gray-400 hover:text-gray-500 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+            >
               <span class="sr-only">Twitter</span>
               <svg
                 class="w-6 h-6"
@@ -307,6 +394,16 @@
             © 2023 PetStore, Inc. All rights reserved.
           </p>
         </div>
+      </div>
+      <div v-else>
+        <h1 class="text-white text-4xl font-bold m-48 p-48">
+          Debes iniciar sesión para continuar
+        </h1>
+        <a
+          href="../Login/index.html"
+          class="text-yellow-200 bg- text-xl font-light m-48 p-48"
+          >Continuar</a
+        >
       </div>
     </div>
   </body>
