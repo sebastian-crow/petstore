@@ -18,10 +18,15 @@ createApp({
             user.login.username === this.input.user &&
             user.login.password === this.input.password
         );
+
         if (user) {
+          localStorage.setItem("User", JSON.stringify(user));
           setTimeout(() => {
             location.href = "../Adoptar/index.html";
           }, 1000);
+          alert("Autenticado correctamente");
+        } else {
+          alert("Credenciales invalidas");
         }
       } else {
         alert("Llena todos los datos para continuar");
@@ -41,8 +46,5 @@ createApp({
     localStorage.setItem("Users", JSON.stringify(this.Users));
   },
   mounted() {},
-  updated() {
-    console.log(this.input.user);
-    console.log(this.input.password);
-  },
+  updated() {},
 }).mount("#login");
