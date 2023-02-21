@@ -8,4 +8,6 @@ createApp({
   },
   methods: {},
   mounted() {},
-}).mount("#root");
+})
+  .use(naive)
+  .mount("#root");
