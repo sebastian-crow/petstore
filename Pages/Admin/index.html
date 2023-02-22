@@ -10,6 +10,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/naive-ui"></script>
     <link rel="stylesheet" href="../../style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.50.2/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
     <style>
       /* width */
       ::-webkit-scrollbar {
@@ -30,11 +41,33 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #2c3333;
       }
+
+      .table {
+        border-spacing: 0 15px;
+      }
+
+      i {
+        font-size: 1rem !important;
+      }
+
+      .table tr {
+        border-radius: 20px;
+      }
+
+      tr td:nth-child(n + 5),
+      tr th:nth-child(n + 5) {
+        border-radius: 0 0.625rem 0.625rem 0;
+      }
+
+      tr td:nth-child(1),
+      tr th:nth-child(1) {
+        border-radius: 0.625rem 0 0 0.625rem;
+      }
     </style>
   </head>
   <body class="bg-black">
-    <div id="user" class="bg-black">
-      <div class="w-full h-screen" v-if="User">
+    <div id="admin" class="bg-black">
+      <div class="w-full h-screen" v-if="User.rol === 'admin'">
         <nav
           class="relative px-4 py-4 flex justify-between items-center shadow-xl"
         >
@@ -111,14 +144,14 @@
               <div class="w-full px-4 sm:w-1/2 lg:w-24 absolute top-4 right-10">
                 <div class="text-right sm:text-left">
                   <a
-                    href="../User/index.html"
+                    href="../Admin/index.html"
                     class="group relative inline-block"
                   >
                     <img
                       src="../../Img/icons8-cat-profile-100.png"
                       alt=""
                       width="43"
-                      class="bg-gray-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                      class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
                     />
 
                     <div
@@ -140,18 +173,6 @@
             </div>
           </div>
 
-          <a
-            href="../Admin/index.html"
-            class="absolute right-48"
-            v-if="User.rol === 'admin'"
-          >
-            <img
-              src="../../Img/icons8-cat-profile-100.png"
-              alt=""
-              width="43"
-              class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-            />
-          </a>
           <button
             class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
             @click="logout"
@@ -245,69 +266,179 @@
             </div>
           </nav>
         </div>
-        <div
-          class="m-8 w-[85%] gap-y-8 sm:m-10 sm:w-[88%] lg:ml-28 lg:w-[85%] grid grid-cols-2 lg:grid-cols-6 bg-black"
-        >
-          <!-- <div
-            class="col-span-6 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
-            v-for="pet in userPets"
-          >
-            <a href="#" class="group relative block bg-black">
-              <img
-                alt="Developer"
-                :src="pet.img"
-                class="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
+
+        <div class="carousel w-full">
+          <div id="slide1" class="carousel-item relative w-full">
+            <div
+              class="flex items-center w-full justify-center min-h-screen bg-black"
+            >
+              <div class="col-span-12">
+                <div class="overflow-auto lg:overflow-visible">
+                  <table
+                    class="table text-gray-400 border-separate space-y-6 text-sm"
+                  >
+                    <thead class="bg-gray-900 text-gray">
+                      <tr>
+                        <th class="p-3">Usuario</th>
+                        <th class="p-3 text-left">Nombre</th>
+                        <th class="p-3 text-left">Telefono</th>
+                        <th class="p-3 text-left">Status</th>
+                        <th class="p-3 text-left">Acción</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-gray-800" v-for="user in Users">
+                        <td class="p-3">
+                          <div class="flex align-items-center">
+                            <img
+                              class="rounded-full h-12 w-12 object-cover"
+                              :src="user.picture.medium"
+                              alt="unsplash image"
+                            />
+                            <div class="ml-3">
+                              <div class="">{{ user.login.username }}</div>
+                              <div class="text-gray-500">
+                                {{ user.id.name }} {{ user.id.value}}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="p-3">
+                          {{ `${user.name.title} ${user.name.first}
+                          ${user.name.last}`}}
+                        </td>
+                        <td class="p-3 font-bold">{{ user.cell }}</td>
+                        <td class="p-3">
+                          <span
+                            class="bg-green-400 text-gray-500 rounded-md px-2"
+                            >available</span
+                          >
+                        </td>
+                        <td class="p-3">
+                          <a
+                            href="#"
+                            class="text-gray-400 hover:text-gray-100 mr-2"
+                          >
+                            <i class="material-icons-outlined text-base"
+                              >visibility</i
+                            >
+                          </a>
+                          <a
+                            href="#"
+                            class="text-gray-400 hover:text-gray-100 mx-2"
+                          >
+                            <i class="material-icons-outlined text-base"
+                              >edit</i
+                            >
+                          </a>
+                          <button
+                            @click="deleteUser(user.login.uuid)"
+                            class="text-gray-400 hover:text-gray-100 ml-2"
+                          >
+                            <i class="material-icons-round text-base"
+                              >delete_outline</i
+                            >
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div
+              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+            >
+              <a href="#slide2" class="btn btn-circle">❮</a>
+              <a href="#slide2" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+          <div id="slide2" class="carousel-item relative w-full">
+            <div class="w-full">
+              <link
+                href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+                rel="stylesheet"
               />
 
-              <div class="relative p-4 sm:p-6 lg:p-8">
-                <p
-                  class="text-sm font-medium uppercase tracking-widest text-pink-500"
-                >
-                  {{ pet.type }}
-                </p>
-
-                <div class="w-full grid grid-cols-2">
-                  <p class="text-xl font-bold text-white sm:text-2xl">
-                    {{ pet.name }}
-                  </p>
-                  <p
-                    class="text-lg font-bold bg-black text-center rounded-3xl text-red-500 sm:text-lg place-self-end"
-                    v-if="!pet.status"
-                  >
-                    <img
-                      src="../../Img/v987-11a-removebg-preview.png"
-                      alt=""
-                      class="w-12"
-                    />
-                  </p>
-                </div>
-
-                <div class="mt-32 sm:mt-48 lg:mt-64">
-                  <div
-                    class="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
-                  >
-                    <p class="text-sm text-white" v-show="pet.status">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Omnis perferendis hic asperiores quibusdam quidem
-                      voluptates doloremque reiciendis nostrum harum.
-                      Repudiandae?
-                    </p>
-                    <p class="text-sm text-white" v-show="!pet.status">
-                      {{ pet.message}}
-                    </p>
+              <div
+                class="flex items-center w-full justify-center min-h-screen bg-black"
+              >
+                <div class="col-span-12">
+                  <div class="overflow-auto lg:overflow-visible">
+                    <table
+                      class="table text-gray-400 border-separate space-y-6 text-sm"
+                    >
+                      <thead class="bg-gray-900 text-gray">
+                        <tr>
+                          <th class="p-3">Mascota</th>
+                          <th class="p-3 text-left">Nombre</th>
+                          <th class="p-3 text-left">Raza</th>
+                          <th class="p-3 text-left">Edad</th>
+                          <th class="p-3 text-left">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="bg-gray-800" v-for="pet in pets">
+                          <td class="p-3">
+                            <div class="flex align-items-center">
+                              <img
+                                class="rounded-full h-12 w-12 object-cover"
+                                :src="pet.img"
+                                alt="unsplash image"
+                              />
+                              <div class="ml-3">
+                                <div class="">{{ pet.name }}</div>
+                                <div class="text-gray-500">
+                                  {{ pet.name }} {{ pet.type }}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="p-3">{{ pet.name }}</td>
+                          <td class="p-3 font-bold">{{ pet.type }}</td>
+                          <td class="p-3 font-bold">{{ pet.age }}</td>
+                          <td class="p-3">
+                            <span
+                              v-show="pet.status"
+                              class="bg-green-400 text-gray-500 rounded-md px-2"
+                              >available</span
+                            >
+                            <span
+                              v-show="!pet.status"
+                              class="bg-green-400 text-gray-500 rounded-md px-2"
+                              >unavailable</span
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
-            </a>
-          </div> -->
-          <template>
-            <n-data-table
-              :columns="columns"
-              :data="data"
-              :pagination="pagination"
-              :bordered="false"
-            />
-          </template>
+            </div>
+            <div
+              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+            >
+              <a href="#slide1" class="btn btn-circle">❮</a>
+              <a href="#slide1" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+          <div id="slide3" class="carousel-item relative w-full">
+            <div
+              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+            >
+              <a href="#slide2" class="btn btn-circle">❮</a>
+              <a href="#slide4" class="btn btn-circle">❯</a>
+            </div>
+          </div>
+          <div id="slide4" class="carousel-item relative w-full">
+            <div
+              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
+            >
+              <a href="#slide3" class="btn btn-circle">❮</a>
+              <a href="#slide1" class="btn btn-circle">❯</a>
+            </div>
+          </div>
         </div>
 
         <div
@@ -437,7 +568,7 @@
         >
       </div>
     </div>
+    <script src="main.js"></script>
+    <script src="../../utils.js"></script>
   </body>
-  <script src="main.js"></script>
-  <script src="../../utils.js"></script>
 </html>
