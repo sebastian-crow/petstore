@@ -19,29 +19,23 @@ createApp({
             user.login.username === this.input.user &&
             user.login.password === this.input.password
         );
+        const admin = JSON.parse(localStorage.getItem("AdminUser"));
+        const isAdmin = admin.login.uuid === user.login.uuid ? true : false;
 
-        if (user && user.login?.uuid !== this.AdminUser.login?.uuid) {
+        if (user) {
+          if (isAdmin) {
+            let newUser = user;
+            newUser.rol = "admin";
+            localStorage.setItem("User", JSON.stringify(newUser));
+            location.href = "../Admin/index.html";
+            return;
+          }
           localStorage.setItem("User", JSON.stringify(user));
           alert("Autenticado correctamente");
-          location.href = "../Adoptar/index.html";  
-        } else {
+          location.href = "../Adoptar/index.html";
+        } /* else {
           alert("Credenciales invalidas");
-        }
-
-        if (
-          this.input.password === this.AdminUser.password &&
-          this.input.user === this.AdminUser.user
-        ) {
-          const newUser = user;
-          newUser.rol = "admin";
-          localStorage.setItem("User", JSON.stringify(newUser));
-          setTimeout(() => {
-            location.href = "../Admin/Pets/index.html";
-          }, 1000);
-          alert("Autenticado correctamente");
-        } else {
-          alert("Credenciales invalidas");
-        }
+        } */
       } else {
         alert("Llena todos los datos para continuar");
       }
@@ -61,6 +55,8 @@ createApp({
     localStorage.setItem("Users", JSON.stringify(this.Users));
     localStorage.setItem("AdminUser", JSON.stringify(adminUser));
   },
+  beforeMount() {},
   mounted() {},
+  beforeUpdate() {},
   updated() {},
 }).mount("#login");
