@@ -15,7 +15,7 @@
   
 </p>
 
-![screenshot](./Img/Preview.jpeg)
+![screenshot](./Img/Preview.png)
 
 ## How To Use
 
