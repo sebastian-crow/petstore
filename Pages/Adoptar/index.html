@@ -113,6 +113,7 @@
                   <a
                     href="../User/index.html"
                     class="group relative inline-block"
+                    v-if="!User.rol === 'admin'"
                   >
                     <img
                       src="../../Img/icons8-cat-profile-100.png"
@@ -135,22 +136,37 @@
                       </code>
                     </div>
                   </a>
+                  <a
+                    href="../Admin/index.html"
+                    class="group relative inline-block"
+                    v-show="User.rol === 'admin'"
+                  >
+                    <img
+                      src="../../Img/icons8-cat-profile-100.png"
+                      alt=""
+                      width="43"
+                      class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                    />
+
+                    <div
+                      class="absolute right-full top-1/2 z-20 mr-3 -translate-y-1/2 whitespace-nowrap rounded bg-black py-[6px] px-4 text-sm font-semibold text-white opacity-0 group-hover:opacity-100"
+                    >
+                      <span
+                        class="absolute right-[-3px] top-1/2 -z-10 h-2 w-2 -translate-y-1/2 rotate-45 rounded-sm bg-black"
+                      ></span>
+                      <code
+                        class="text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                      >
+                        {{ `${User.name.title} ${User.name.first}
+                        ${User.name.last}`}}
+                      </code>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-          <a
-            href="../Admin/index.html"
-            class="absolute right-48"
-            v-if="User. rol === 'admin'"
-          >
-            <img
-              src="../../Img/icons8-cat-profile-100.png"
-              alt=""
-              width="43"
-              class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-            />
-          </a>
+
           <button
             class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
             @click="logout"
@@ -244,7 +260,7 @@
             </div>
           </nav>
         </div>
-        <div  
+        <div
           class="m-5 sm:m-9 md:m-12 lg:m-20 w-[90%] grid grid-cols-2 lg:grid-cols-6 gap-8 h-full bg-black"
         >
           <div

@@ -19,6 +19,11 @@ createApp({
     },
     deleteUser(id) {
       console.log(id);
+      const users = JSON.parse(JSON.stringify(this.Users));
+      console.log(users);
+      const newUsers = users.filter((user) => user.login.uuid !== id);
+      this.Users = newUsers;
+      localStorage.setItem("Users", JSON.stringify(newUsers));
     },
   },
   beforeMount() {

@@ -73,10 +73,10 @@
     </style>
     <script>
       tailwind.config = {
-        plugins: [
+        /* plugins: [
           // ...
           require("@tailwindcss/forms"),
-        ],
+        ], */
         theme: {
           extend: {
             colors: {
@@ -89,7 +89,7 @@
   </head>
   <body class="bg-black">
     <div id="entregar" class="bg-black">
-      <div class="w-full h-screen" v-if="User.rol === 'admin'">
+      <div class="w-full h-screen" v-if="User">
         <nav
           class="relative px-4 py-4 flex justify-between items-center shadow-xl"
         >
@@ -289,335 +289,174 @@
           </nav>
         </div>
 
-        <!--  <div class="carousel w-full">
-          <div id="slide1" class="carousel-item relative w-full">
-            <div
-              class="flex items-center w-full justify-center min-h-screen bg-black transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-            >
-              <h1
-                class="text-white absolute top-20 text-2xl leading-loose text-center font-semibold leading-none"
-              >
-                Usuarios
-              </h1>
-              <div class="col-span-12">
-                <div class="overflow-auto lg:overflow-visible">
-                  <table
-                    class="table text-gray-400 border-separate space-y-6 text-sm"
-                  >
-                    <thead class="bg-gray-900 text-gray">
-                      <tr>
-                        <th class="p-3">Usuario</th>
-                        <th class="p-3 text-left">Nombre</th>
-                        <th class="p-3 text-left">Telefono</th>
-                        <th class="p-3 text-left">Status</th>
-                        <th class="p-3 text-left">Acción</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="bg-gray-800" v-for="user in Users">
-                        <td class="p-3">
-                          <div class="flex align-items-center">
-                            <img
-                              class="rounded-full h-12 w-12 object-cover"
-                              :src="user.picture.medium"
-                              alt="unsplash image"
-                            />
-                            <div class="ml-3">
-                              <div class="">{{ user.login.username }}</div>
-                              <div class="text-gray-500">
-                                {{ user.id.name }} {{ user.id.value}}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="p-3">
-                          {{ `${user.name.title} ${user.name.first}
-                          ${user.name.last}`}}
-                        </td>
-                        <td class="p-3 font-bold">{{ user.cell }}</td>
-                        <td class="p-3">
-                          <span
-                            class="bg-green-400 text-gray-500 rounded-md px-2"
-                            >available</span
-                          >
-                        </td>
-                        <td class="p-3">
-                          <a
-                            href="#"
-                            class="text-gray-400 hover:text-gray-100 mr-2"
-                          >
-                            <i class="material-icons-outlined text-base"
-                              >visibility</i
-                            >
-                          </a>
-                          <a
-                            href="#"
-                            class="text-gray-400 hover:text-gray-100 mx-2"
-                          >
-                            <i class="material-icons-outlined text-base"
-                              >edit</i
-                            >
-                          </a>
-                          <button
-                            @click="deleteUser(user.login.uuid)"
-                            class="text-gray-400 hover:text-gray-100 ml-2"
-                          >
-                            <i class="material-icons-round text-base"
-                              >delete_outline</i
-                            >
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div
-              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-            >
-              <a href="#slide2" class="btn btn-circle">❮</a>
-              <a href="#slide2" class="btn btn-circle">❯</a>
-            </div>
-          </div>
-          <div id="slide2" class="carousel-item relative w-full">
-            <div class="w-full">
-              <link
-                href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-                rel="stylesheet"
-              />
-
-              <div
-                class="flex items-center w-full justify-center min-h-screen bg-black transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-              >
-                <h1
-                  class="text-white absolute top-20 text-2xl leading-loose text-center font-semibold leading-none"
-                >
-                  Mascotas
-                </h1>
-                <div class="col-span-12">
-                  <div class="overflow-auto lg:overflow-visible">
-                    <table
-                      class="table text-gray-400 border-separate space-y-6 text-sm"
-                    >
-                      <thead class="bg-gray-900 text-gray">
-                        <tr>
-                          <th class="p-3">Mascota</th>
-                          <th class="p-3 text-left">Nombre</th>
-                          <th class="p-3 text-left">Raza</th>
-                          <th class="p-3 text-left">Edad</th>
-                          <th class="p-3 text-left">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr class="bg-gray-800" v-for="pet in pets">
-                          <td class="p-3">
-                            <div class="flex align-items-center">
-                              <img
-                                class="rounded-full h-12 w-12 object-cover"
-                                :src="pet.img"
-                                alt="unsplash image"
-                              />
-                              <div class="ml-3">
-                                <div class="">{{ pet.name }}</div>
-                                <div class="text-gray-500">
-                                  {{ pet.name }} {{ pet.type }}
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="p-3">{{ pet.name }}</td>
-                          <td class="p-3 font-bold">{{ pet.type }}</td>
-                          <td class="p-3 font-bold">{{ pet.age }}</td>
-                          <td class="p-3">
-                            <span
-                              v-show="pet.status"
-                              class="bg-green-400 text-gray-500 rounded-md px-2"
-                              >available</span
-                            >
-                            <span
-                              v-show="!pet.status"
-                              class="bg-green-400 text-gray-500 rounded-md px-2"
-                              >unavailable</span
-                            >
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-            >
-              <a href="#slide1" class="btn btn-circle">❮</a>
-              <a href="#slide1" class="btn btn-circle">❯</a>
-            </div>
-          </div>
-          <div id="slide3" class="carousel-item relative w-full">
-            <div
-              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-            >
-              <a href="#slide2" class="btn btn-circle">❮</a>
-              <a href="#slide4" class="btn btn-circle">❯</a>
-            </div>
-          </div>
-          <div id="slide4" class="carousel-item relative w-full">
-            <div
-              class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2"
-            >
-              <a href="#slide3" class="btn btn-circle">❮</a>
-              <a href="#slide1" class="btn btn-circle">❯</a>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- component -->
         <section
-          class="max-w-4xl p-6 mx-auto border-2 border-dashed rounded-md shadow-md dark:bg-black mt-20"
+          class="max-w-5xl p-6 mx-auto border-2 border-gray-800 rounded-xl shadow-md dark:bg-black mt-20"
         >
           <h1
             class="text-xl font-bold text-white capitalize dark:bg-black dark:text-white"
           >
             Entregar en adopción una mascota
           </h1>
-          <form>
-            <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-              <div>
-                <label class="text-white dark:text-gray-200" for="username"
-                  >Nombre</label
-                >
-                <input
-                  id="username"
-                  type="text"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
 
-              <div>
-                <label class="text-white dark:text-gray-200" for="emailAddress"
-                  >Raza</label
-                >
-                <input
-                  id="emailAddress"
-                  type="email"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
+          <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+            <div>
+              <label class="text-white dark:text-gray-200" for="username"
+                >Nombre</label
+              >
+              <input
+                type="text"
+                placeholder="Nombre de la mascota"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-black dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                v-model="input.name"
+                required
+              />
+            </div>
 
-              <div>
-                <label class="text-white dark:text-gray-200" for="password"
-                  >Especie</label
-                >
-                <input
-                  id="password"
-                  type="password"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
+            <div>
+              <label
+                class="text-white dark:text-gray-200"
+                for="passwordConfirmation"
+                >Especie</label
+              >
+              <select
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-black dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                v-model="input.type"
+                required
+              >
+                <option value="">Selecciona el tipo de mascota</option>
+                <option value="cat">Gato</option>
+                <option value="dog">Perro</option>
+              </select>
+            </div>
 
-              <div>
-                <label
-                  class="text-white dark:text-gray-200"
-                  for="passwordConfirmation"
-                  >Color</label
-                >
-                <input
-                  id="color"
-                  type="color"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
-              <div>
-                <label
-                  class="text-white dark:text-gray-200"
-                  for="passwordConfirmation"
-                  >Genero</label
-                >
-                <select
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                >
-                  <option>Macho</option>
-                  <option>Hembra</option>
-                </select>
-              </div>
-              <div>
-                <label
-                  class="text-white dark:text-gray-200"
-                  for="passwordConfirmation"
-                  >Edad</label
-                >
-                <input
-                  id="passwordConfirmation"
-                  type="password"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                />
-              </div>
+            <div>
+              <label class="text-white dark:text-gray-200" for="emailAddress"
+                >Raza*</label
+              >
+              <input
+                id="breed"
+                type="text"
+                placeholder="La raza de la mascota"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-black dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                v-model="input.breed"
+                required
+              />
+            </div>
 
-              <div>
-                <label
-                  class="text-white dark:text-gray-200"
-                  for="passwordConfirmation"
-                  >Descripción</label
-                >
-                <textarea
-                  id="textarea"
-                  type="textarea"
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                ></textarea>
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-white">
-                  Imagen
-                </label>
-                <div
-                  class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-                >
-                  <div class="space-y-1 text-center">
-                    <svg
-                      class="mx-auto h-12 w-12 text-white"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 48 48"
-                      aria-hidden="true"
+            <div>
+              <label
+                class="text-white dark:text-gray-200"
+                for="passwordConfirmation"
+                >Color*</label
+              >
+              <input
+                id="color"
+                type="color"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-black dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                v-model="input.color"
+                required
+              />
+            </div>
+            <div>
+              <label
+                class="text-white dark:text-gray-200"
+                for="passwordConfirmation"
+                >Sexo*</label
+              >
+              <select
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-black dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                v-model="input.gender"
+                required
+              >
+                <option value="">Selecciona el sexo de la mascota</option>
+                <option value="male">Macho</option>
+                <option value="female">Hembra</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="text-white dark:text-gray-200"
+                for="passwordConfirmation"
+                >Edad*</label
+              >
+              <input
+                id="passwordConfirmation"
+                type="text"
+                placeholder="La edad de la mascota en meses"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-black dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                v-model="input.age"
+                required
+              />
+            </div>
+
+            <div>
+              <label
+                class="text-white dark:text-gray-200"
+                for="passwordConfirmation"
+                >Descripción*</label
+              >
+              <textarea
+                id="textarea"
+                type="textarea"
+                placeholder="Cuentanos un poco sobre la historia de la mascota"
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-black dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                v-model="input.description"
+                required
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-white">
+                Imagen*
+              </label>
+              <div
+                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+              >
+                <div class="space-y-1 text-center">
+                  <svg
+                    class="mx-auto h-12 w-12 text-white"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <div class="flex text-sm text-gray-600">
+                    <label
+                      for="file-upload"
+                      class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                     >
-                      <path
-                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <div class="flex text-sm text-gray-600">
-                      <label
-                        for="file-upload"
-                        class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                      >
-                        <span class="">Upload a file</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          class="sr-only"
-                        />
-                      </label>
-                      <p class="pl-1 text-white">or drag and drop</p>
-                    </div>
-                    <p class="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
+                      <span class="">Upload a file</span>
+                      <!-- <input
+                        id="file-upload"
+                        name="file-upload"
+                        type="file"
+                        class="sr-only"
+                      /> -->
+                      <input type="file" id="file-uploader" />
+                    </label>
+                    <p class="pl-1 text-white">or drag and drop</p>
                   </div>
+                  <p class="text-xs text-white">PNG, JPG, GIF up to 10MB</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="flex justify-end mt-6">
-              <button
-                class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
-              >
-                Save
-              </button>
-            </div>
-          </form>
+          <div class="flex justify-end mt-6">
+            <button
+              class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600"
+              @click="addPet"
+            >
+              Enviar
+            </button>
+          </div>
         </section>
 
         <div
@@ -749,5 +588,16 @@
     </div>
     <script src="main.js"></script>
     <script src="../../utils.js"></script>
+    <script>
+      const fileUpload = document.getElementById("file-uploader");
+      fileUpload.addEventListener("change", (e) => {
+        const files = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(files);
+        reader.addEventListener("load", (e) => {
+          localStorage.setItem("file", JSON.stringify(reader.result));
+        });
+      });
+    </script>
   </body>
 </html>
