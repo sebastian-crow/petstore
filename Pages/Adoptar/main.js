@@ -10,8 +10,10 @@ createApp({
           type: "Dog",
           name: "Lukas",
           img: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80",
-          description: "",
+          description: ``,
+          age: "24 meses",
           status: true, // Si está en falso significa que el animal ha sido dado en adopción.
+          message: "",
         },
         {
           id: 2,
@@ -19,8 +21,10 @@ createApp({
           type: "Dog",
           name: "Rufus",
           img: "https://images.unsplash.com/photo-1503256207526-0d5d80fa2f47?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80",
-          description: "",
+          description: ``,
+          age: "33 meses",
           status: true,
+          message: "",
         },
         {
           id: 3,
@@ -28,8 +32,10 @@ createApp({
           type: "Dog",
           name: "Dulce",
           img: "https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-          description: "",
+          description: ``,
+          age: "18 meses",
           status: true,
+          message: "",
         },
         {
           id: 4,
@@ -37,8 +43,10 @@ createApp({
           type: "Cat",
           name: "Aslan",
           img: "https://images.unsplash.com/photo-1557948206-7478d769f813?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-          description: "",
+          description: ``,
+          age: "16 meses",
           status: true,
+          message: "",
         },
         {
           id: 5,
@@ -46,8 +54,9 @@ createApp({
           type: "Cat",
           name: "Milú",
           img: "https://images.unsplash.com/photo-1503777119540-ce54b422baff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80",
-          description: "",
+          description: ``,
           status: true,
+          message: "",
         },
         {
           id: 6,
@@ -55,8 +64,10 @@ createApp({
           type: "Cat",
           name: "Nahori",
           img: "https://images.unsplash.com/photo-1518288774672-b94e808873ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=738&q=80",
-          description: "",
+          description: ``,
+          age: "8 meses",
           status: true,
+          message: "",
         },
       ],
       User: "",
@@ -69,9 +80,7 @@ createApp({
     logout() {
       localStorage.removeItem("User");
       localStorage.removeItem("AdminUser");
-      setTimeout(() => {
-        location.href = "../../index.html";
-      }, 1000);
+      location.href = "../../index.html";
     },
     adopt() {
       const petAdopted = this.currentPet;
@@ -82,6 +91,7 @@ createApp({
             name: `${this.User.name.title} ${this.User.name.first} ${this.User.name.last}`,
             id: this.User.login.uuid,
           };
+          pet.message = `${pet.name} ha sido acogido en un hogar en el que recibira mucho amor y sera muy feliz. `;
           return pet;
         }
         return pet;

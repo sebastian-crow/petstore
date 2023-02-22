@@ -23,9 +23,7 @@ createApp({
         if (user && user.login?.uuid !== this.AdminUser.login?.uuid) {
           localStorage.setItem("User", JSON.stringify(user));
           alert("Autenticado correctamente");
-          setTimeout(() => {
-            location.href = "../Adoptar/index.html";
-          }, 1000);
+          location.href = "../Adoptar/index.html";  
         } else {
           alert("Credenciales invalidas");
         }
