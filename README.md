@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="#"><img src="./Img/v987-11a-removebg-preview.png" alt="Automotores" width="400"></a>
+  <a href="#"><img src="./Img/v987-11a-removebg-preview.png" alt="Automotores" width="200"></a>
   <br>
   PetStore
   <br>
