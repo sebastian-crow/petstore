@@ -104,14 +104,41 @@
             <li></li>
             <li></li>
           </ul>
-          <a href="../User/index.html" class="absolute right-48" v-if="User">
-            <img
-              src="../../Img/icons8-cat-profile-100.png"
-              alt=""
-              width="43"
-              class="bg-gray-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-            />
-          </a>
+          <div
+            class="container w-36 mx-auto py-12 absolute top-0 right-6 lg:w-48 lg:right-28"
+          >
+            <div class="-mx-4 flex flex-wrap justify-center" v-if="User">
+              <div class="w-full px-4 sm:w-1/2 lg:w-24 absolute top-4 right-10">
+                <div class="text-right sm:text-left">
+                  <a
+                    href="../User/index.html"
+                    class="group relative inline-block"
+                  >
+                    <img
+                      src="../../Img/icons8-cat-profile-100.png"
+                      alt=""
+                      width="43"
+                      class="bg-gray-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                    />
+
+                    <div
+                      class="absolute right-full top-1/2 z-20 mr-3 -translate-y-1/2 whitespace-nowrap rounded bg-black py-[6px] px-4 text-sm font-semibold text-white opacity-0 group-hover:opacity-100"
+                    >
+                      <span
+                        class="absolute right-[-3px] top-1/2 -z-10 h-2 w-2 -translate-y-1/2 rotate-45 rounded-sm bg-black"
+                      ></span>
+                      <code
+                        class="text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                      >
+                        {{ `${User.name.title} ${User.name.first}
+                        ${User.name.last}`}}
+                      </code>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
           <a
             href="../Admin/index.html"
             class="absolute right-48"
@@ -217,8 +244,8 @@
             </div>
           </nav>
         </div>
-        <div
-          class="m-5 sm:m-12 lg:m-20 w-[90%] grid grid-cols-2 lg:grid-cols-6 gap-8 h-full bg-black"
+        <div  
+          class="m-5 sm:m-9 md:m-12 lg:m-20 w-[90%] grid grid-cols-2 lg:grid-cols-6 gap-8 h-full bg-black"
         >
           <div
             class="col-span-2 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
@@ -226,8 +253,6 @@
             @click="showMe(pet)"
           >
             <template>
-              <!-- <n-button @click="showModal = true"> Start Me up </n-button> -->
-
               <n-modal
                 v-model:show="showModal"
                 preset="dialog"
@@ -240,24 +265,7 @@
                 class="rounded-lg"
               />
             </template>
-            <!-- <n-modal v-model:show="showModal" transform-origin="center">
-              <n-card
-                :bordered="false"
-                size="huge"
-                role="dialog"
-                aria-modal="true"
-                class="w-[600px] text-white rounded-lg"
-                style="background-color: #0c0c0c; font"
-              >
-                <template #header>
-                  <h1 class="text-gray-200 text-xl">
-                    Estás por tomar una decisión que cambiara tu vida
-                  </h1>
-                </template>
-                Confirmar
-                <template #footer> Nice </template>
-              </n-card>
-            </n-modal> -->
+
             <a href="#" class="group relative block bg-black">
               <img
                 alt="Developer"
