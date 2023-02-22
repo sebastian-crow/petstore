@@ -49,6 +49,7 @@ createApp({
         };
         localStorage.setItem("pets", JSON.stringify([...this.pets, newPet]));
         alert("Has agregado con exito una nueva mascota");
+        location.href = "../Adoptar/index.html";
       } else {
         alert("Debes llenar todos los campos para continuar");
       }
