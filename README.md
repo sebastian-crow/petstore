@@ -33,8 +33,8 @@ $ open index.html
 ## Live Demo
 
 ```bash
- # Netlify
- $ On it
+ # Github Pages
+ $ https://sebastian-crow.github.io/petstore/
 ```
 
 ## License
