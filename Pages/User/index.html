@@ -103,60 +103,41 @@
             </li>
             <li></li>
             <li></li>
+            <li></li>
+            <li v-if="User.rol === 'admin'">
+              <a href="../Admin/index.html">
+                <img
+                  src="../../Img/icons8-cat-profile-100.png"
+                  alt=""
+                  width="43"
+                  class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                />
+              </a>
+            </li>
+            <li v-if="!User.rol">
+              <a href="../User/index.html">
+                <img
+                  src="../../Img/icons8-cat-profile-100.png"
+                  alt=""
+                  width="43"
+                  class="bg-gray-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                />
+              </a>
+            </li>
           </ul>
-          <div
-            class="container w-36 mx-auto py-12 absolute top-0 right-6 lg:w-48 lg:right-28"
-          >
-            <div class="-mx-4 flex flex-wrap justify-center" v-if="User">
-              <div class="w-full px-4 sm:w-1/2 lg:w-24 absolute top-4 right-10">
-                <div class="text-right sm:text-left">
-                  <a
-                    href="../User/index.html"
-                    class="group relative inline-block"
-                  >
-                    <img
-                      src="../../Img/icons8-cat-profile-100.png"
-                      alt=""
-                      width="43"
-                      class="bg-gray-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-                    />
 
-                    <div
-                      class="absolute right-full top-1/2 z-20 mr-3 -translate-y-1/2 whitespace-nowrap rounded bg-black py-[6px] px-4 text-sm font-semibold text-white opacity-0 group-hover:opacity-100"
-                    >
-                      <span
-                        class="absolute right-[-3px] top-1/2 -z-10 h-2 w-2 -translate-y-1/2 rotate-45 rounded-sm bg-black"
-                      ></span>
-                      <code
-                        class="text-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-                      >
-                        {{ `${User.name.title} ${User.name.first}
-                        ${User.name.last}`}}
-                      </code>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <a
-            href="../Admin/index.html"
-            class="absolute right-48"
-            v-if="User.rol === 'admin'"
-          >
-            <img
-              src="../../Img/icons8-cat-profile-100.png"
-              alt=""
-              width="43"
-              class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
-            />
-          </a>
           <button
             class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
             @click="logout"
+            v-if="User"
           >
             Cerrar Sesión
+          </button>
+          <button
+            class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200"
+            v-if="!User"
+          >
+            <a href="../Login/">Iniciar Sesión</a>
           </button>
         </nav>
         <div class="navbar-menu relative z-50 hidden">
@@ -228,6 +209,27 @@
                     >Contacto</a
                   >
                 </li>
+                <br />
+                <li v-if="User.rol === 'admin'" class="mb-1 m-4">
+                  <a href="../Admin/index.html">
+                    <img
+                      src="../../Img/icons8-cat-profile-100.png"
+                      alt=""
+                      width="43"
+                      class="bg-yellow-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                    />
+                  </a>
+                </li>
+                <li v-if="!User.rol" class="mb-1 m-4">
+                  <a href="../User/index.html">
+                    <img
+                      src="../../Img/icons8-cat-profile-100.png"
+                      alt=""
+                      width="43"
+                      class="bg-gray-200 rounded-3xl transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-pop-br"
+                    />
+                  </a>
+                </li>
               </ul>
             </div>
             <div class="mt-auto">
@@ -235,8 +237,15 @@
                 <button
                   class="block w-full px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl"
                   @click="logout"
+                  v-if="User"
                 >
                   Cerrar Sesión
+                </button>
+                <button
+                  class="block w-full px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl"
+                  v-if="!User"
+                >
+                  <a href="../Login/">Iniciar Sesión</a>
                 </button>
               </div>
               <p class="my-4 text-xs text-center text-gray-400">

@@ -24,7 +24,7 @@ createApp({
   },
   mounted() {
     const ownPets = JSON.parse(JSON.stringify(this.pets));
-    this.userPets = ownPets.filter((p) => {
+    this.userPets = ownPets?.filter((p) => {
       if (p.owner?.id === this.User?.login?.uuid) {
         return p;
       }

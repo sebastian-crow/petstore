@@ -12,7 +12,7 @@ createApp({
   },
   mounted() {
     if (this.User) {
-      location.href = "Pages/User/index.html";
+      location.href = "Pages/Adoptar/index.html";
     }
   },
 })

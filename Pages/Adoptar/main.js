@@ -1,4 +1,5 @@
 const { createApp, ref } = Vue;
+const { darkTheme } = naive;
 
 createApp({
   data() {
@@ -74,6 +75,7 @@ createApp({
       AdminUser: "",
       showModal: ref(false),
       currentPet: "",
+      darkTheme,
     };
   },
   methods: {
@@ -84,20 +86,28 @@ createApp({
     },
     adopt() {
       const petAdopted = this.currentPet;
-      const petsUpdated = this.pets.map((pet) => {
-        if (pet.id === petAdopted.id) {
-          pet.status = false;
-          pet.owner = {
-            name: `${this.User.name.title} ${this.User.name.first} ${this.User.name.last}`,
-            id: this.User.login.uuid,
-          };
-          pet.message = `${pet.name} ha sido acogido en un hogar en el que recibira mucho amor y sera muy feliz. `;
+      const findPet = this.pets.find(
+        (p) => p.id === petAdopted.id && !p.status
+      );
+      if (findPet) {
+        alert(`${petAdopted.name} ya fue adpotado, no puedes adoptar este`);
+        return;
+      } else {
+        const petsUpdated = this.pets.map((pet) => {
+          if (pet.id === petAdopted.id) {
+            pet.status = false;
+            pet.owner = {
+              name: `${this.User.name.title} ${this.User.name.first} ${this.User.name.last}`,
+              id: this.User.login.uuid,
+            };
+            pet.message = `${pet.name} ha sido acogido en un hogar en el que recibira mucho amor y sera muy feliz. `;
+            return pet;
+          }
           return pet;
-        }
-        return pet;
-      });
-      localStorage.setItem("pets", JSON.stringify(petsUpdated));
-      alert(`Felicidades! Has adoptado a ${petAdopted.name}`);
+        });
+        localStorage.setItem("pets", JSON.stringify(petsUpdated));
+        alert(`Felicidades! Has adoptado a ${petAdopted.name}`);
+      }
     },
     showMe(pet) {
       this.showModal = true;
